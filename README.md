@@ -14,11 +14,18 @@ Learn Stack
 
 ## API Verbs
 
-- [x] Now playing (Movie)
-- [x] Upcoming (Movie)
-- [x] Popular (Movie)
-- [x] Airing Today (TV)
-- [x] Top Rated (TV)
-- [x] Popular (TV)
-- [ ] TV Show Detail
-- [ ] Movie Detail
+Movie
+
+- [x] Now playing
+- [x] Upcoming
+- [x] Popular
+- [x] Search
+- [x] Detail
+
+TV
+
+- [x] Airing Today
+- [x] Top Rated
+- [x] Popular
+- [x] Search
+- [x] Detail

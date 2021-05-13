@@ -7,7 +7,7 @@ export default class extends React.Component {
   state = {
     movieResults: null,
     tvResults: null,
-    searchTerm: 'code',
+    searchTerm: '',
     error: null,
     loading: false,
   };
@@ -15,6 +15,7 @@ export default class extends React.Component {
   handleSubmit() {
     const { searchTerm } = this.state;
     if (searchTerm !== '') {
+      // Prototype Object의 메서드 사용
       this.searchByTerm();
     }
   }

@@ -6,6 +6,7 @@ import {
   Redirect,
 } from 'react-router-dom';
 
+// 'Routes/Home' 폴더에 index.js를 찾는다.
 import Home from 'Routes/Home';
 import TV from 'Routes/TV';
 import Search from 'Routes/Search';

@@ -1,14 +1,45 @@
 import React from 'react';
+
+import { moviesApi, tvApi } from 'api';
 import SearchPresenter from './SearchPresenter';
 
 export default class extends React.Component {
   state = {
     movieResults: null,
     tvResults: null,
-    searchTerm: '',
+    searchTerm: 'code',
     error: null,
-    loading: true,
+    loading: false,
   };
+
+  handleSubmit() {
+    const { searchTerm } = this.state;
+    if (searchTerm !== '') {
+      this.searchByTerm();
+    }
+  }
+
+  async searchByTerm() {
+    const { searchTerm } = this.state;
+    this.setState({ loading: true });
+    try {
+      const {
+        data: { results: movieResults },
+      } = await moviesApi.search(searchTerm);
+      const {
+        data: { results: tvResults },
+      } = await tvApi.search(searchTerm);
+      this.setState({
+        movieResults,
+        tvResults,
+      });
+    } catch {
+      this.setState({ error: "Can' find results" });
+    } finally {
+      this.setState({ lading: false });
+    }
+  }
+
   render() {
     const { movieResults, tvResults, searchTerm, error, loading } = this.state;
     return (
@@ -18,6 +49,7 @@ export default class extends React.Component {
         searchTerm={searchTerm}
         error={error}
         loading={loading}
+        handleSubmit={this.handleSubmit}
       />
     );
   }

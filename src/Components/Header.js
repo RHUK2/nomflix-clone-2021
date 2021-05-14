@@ -25,6 +25,7 @@ const Item = styled.li`
   height: 50px;
   text-align: center;
   border-bottom: 5px solid ${({ current }) => (current ? 'red' : 'transparent')};
+  transition: border-bottom 0.5s ease-in-out;
 `;
 
 const SLink = styled(Link)`

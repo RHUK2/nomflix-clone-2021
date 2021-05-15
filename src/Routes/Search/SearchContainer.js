@@ -12,13 +12,24 @@ export default class extends React.Component {
     loading: false,
   };
 
-  handleSubmit() {
+  // Event에 콜백으로 들어가는 함수로 this 바인딩을 위해
+  // 화살표 함수 사용
+  // handleSubmit(event) {
+  handleSubmit = (event) => {
+    event.preventDefault();
     const { searchTerm } = this.state;
     if (searchTerm !== '') {
       // Prototype Object의 메서드 사용
       this.searchByTerm();
     }
-  }
+  };
+
+  updateTerm = (event) => {
+    const {
+      target: { value: searchTerm },
+    } = event;
+    this.setState({ searchTerm });
+  };
 
   async searchByTerm() {
     const { searchTerm } = this.state;
@@ -37,7 +48,7 @@ export default class extends React.Component {
     } catch {
       this.setState({ error: "Can' find results" });
     } finally {
-      this.setState({ lading: false });
+      this.setState({ loading: false });
     }
   }
 
@@ -51,6 +62,7 @@ export default class extends React.Component {
         error={error}
         loading={loading}
         handleSubmit={this.handleSubmit}
+        updateTerm={this.updateTerm}
       />
     );
   }

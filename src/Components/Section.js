@@ -15,14 +15,19 @@ const Title = styled.span`
 
 const Grid = styled.div`
   margin-top: 25px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 125px);
+  grid-gap: 25px;
 `;
 
+// <Section> "이부분이 children" </Section>
 const Section = ({ title, children }) => (
   <Container>
     <Title>{title}</Title>
     <Grid>{children}</Grid>
   </Container>
 );
+
 Section.propTypes = {
   title: PropTypes.string.isRequired,
   children: PropTypes.node,

@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import Loader from 'Components/Loader';
 import Section from 'Components/Section';
 import Message from 'Components/Message';
+import Poster from 'Components/Poster';
 
 const Container = styled.div`
   padding: 0px 20px;
@@ -45,14 +46,29 @@ const SearchPresenter = ({
         {movieResults && movieResults.length > 0 && (
           <Section title="Movie Results">
             {movieResults.map((movie) => (
-              <span key={movie.id}>{movie.title}</span>
+              <Poster
+                key={movie.id}
+                id={movie.id}
+                imageUrl={movie.poster_path}
+                title={movie.title}
+                rating={movie.vote_average}
+                year={movie.release_date.substring(0, 4)}
+                isMovie={true}
+              />
             ))}
           </Section>
         )}
         {tvResults && tvResults.length > 0 && (
           <Section title="TV Results">
             {tvResults.map((tv) => (
-              <span key={tv.id}>{tv.name}</span>
+              <Poster
+                key={tv.id}
+                id={tv.id}
+                imageUrl={tv.poster_path}
+                title={tv.name}
+                rating={tv.vote_average}
+                year={tv.first_air_date.substring(0, 4)}
+              />
             ))}
           </Section>
         )}
@@ -60,7 +76,7 @@ const SearchPresenter = ({
         {movieResults &&
           tvResults &&
           movieResults.length === 0 &&
-          tvResults.length === 0 && <Message text={`Not Found for:${1}`} />}
+          tvResults.length === 0 && <Message text={'Not Found'} />}
       </>
     )}
   </Container>

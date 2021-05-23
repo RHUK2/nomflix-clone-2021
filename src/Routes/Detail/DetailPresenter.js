@@ -2,18 +2,20 @@ import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
+import { withRouter } from 'react-router';
 
 import Loader from 'Components/Loader';
+import Tabs from 'Components/Tabs';
 
 const Container = styled.div`
-  height: 100%;
+  min-height: 100%;
   position: relative;
   padding: 50px;
 `;
 
 const BackDrop = styled.div`
-  position: absolute;
-  top: 0px;
+  position: fixed;
+  top: 50px;
   left: 0px;
   width: 100%;
   height: 100%;
@@ -37,7 +39,7 @@ const Cover = styled.div`
   border: 1px solid white;
   background-position: center;
   width: 30%;
-  height: 100%;
+  height: 80vh;
   border-radius: 5px;
 `;
 
@@ -54,6 +56,7 @@ const Title = styled.h3`
 const ItemContainer = styled.div`
   display: flex;
   margin-bottom: 10px;
+  align-items: center;
 `;
 
 const Divider = styled.span`
@@ -68,9 +71,15 @@ const Overview = styled.p`
   font-size: 12px;
   line-height: 1.5;
   width: 50%;
+  margin-bottom: 30px;
 `;
 
-const DetailPresenter = ({ result, error, loading }) => (
+const Icon = styled.i`
+  font-size: 20px;
+  color: #f1c40f;
+`;
+
+const DetailPresenter = withRouter(({ result, error, loading, isMovie }) => (
   <>
     <Helmet>
       <title>
@@ -126,19 +135,36 @@ const DetailPresenter = ({ result, error, loading }) => (
                       : `${genre.name} / `,
                   )}
               </Item>
+              {isMovie ? (
+                <>
+                  <Divider>•</Divider>
+                  <Item>
+                    <a
+                      href={`https://www.imdb.com/title/${result.imdb_id}`}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <Icon className="fab fa-imdb"></Icon>
+                    </a>
+                  </Item>
+                </>
+              ) : null}
             </ItemContainer>
             <Overview>{result.overview}</Overview>
+
+            <Tabs result={result} isMovie={isMovie} />
           </Data>
         </Content>
       </Container>
     )}
   </>
-);
+));
 
 DetailPresenter.propTypes = {
   result: PropTypes.object,
   error: PropTypes.string,
   loading: PropTypes.bool.isRequired,
+  isMovie: PropTypes.bool.isRequired,
 };
 
 export default DetailPresenter;

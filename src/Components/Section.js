@@ -9,7 +9,7 @@ const Container = styled.div`
 `;
 
 const Title = styled.span`
-  font-size: 14px;
+  font-size: 40px;
   font-weight: 600;
 `;
 

@@ -24,8 +24,11 @@ const Item = styled.li`
   width: 80px;
   height: 50px;
   text-align: center;
+  :hover {
+    border-bottom: 5px solid red;
+  }
   border-bottom: 5px solid ${({ current }) => (current ? 'red' : 'transparent')};
-  transition: border-bottom 0.5s ease-in-out;
+  transition: border-bottom 0.4s ease-in-out;
 `;
 
 const SLink = styled(Link)`

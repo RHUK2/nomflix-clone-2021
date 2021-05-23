@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import Helmet from 'react-helmet';
+
 import Loader from 'Components/Loader';
 
 const Container = styled.div`
@@ -68,58 +70,70 @@ const Overview = styled.p`
   width: 50%;
 `;
 
-const DetailPresenter = ({ result, error, loading }) =>
-  loading ? (
-    <Loader />
-  ) : (
-    <Container>
-      <BackDrop
-        bgUrl={
-          result.backdrop_path
-            ? `https://image.tmdb.org/t/p/original${result.backdrop_path}`
-            : null
-        }
-      ></BackDrop>
-      <Content>
-        <Cover
+const DetailPresenter = ({ result, error, loading }) => (
+  <>
+    <Helmet>
+      <title>
+        {!loading &&
+          (result.original_title
+            ? result.original_title
+            : result.original_name)}
+      </title>
+    </Helmet>
+    {loading ? (
+      <Loader />
+    ) : (
+      <Container>
+        <BackDrop
           bgUrl={
-            result.poster_path
-              ? `https://image.tmdb.org/t/p/w500${result.poster_path}`
-              : require(`../../assets/noimage.png`).default
+            result.backdrop_path
+              ? `https://image.tmdb.org/t/p/original${result.backdrop_path}`
+              : null
           }
-        ></Cover>
-        <Data>
-          <Title>
-            {result.original_title
-              ? result.original_title
-              : result.original_name}
-          </Title>
-          <ItemContainer>
-            <Item>
-              {result.release_date
-                ? result.release_date.substring(0, 4)
-                : result.first_air_date.substring(0, 4)}
-            </Item>
-            <Divider>•</Divider>
-            <Item>
-              {result.runtime ? result.runtime : result.episode_run_time[0]} min
-            </Item>
-            <Divider>•</Divider>
-            <Item>
-              {' '}
-              {result.genres &&
-                result.genres.map((genre, index) =>
-                  index === result.genres.length - 1
-                    ? genre.name
-                    : `${genre.name} / `,
-                )}
-            </Item>
-          </ItemContainer>
-          <Overview>{result.overview}</Overview>
-        </Data>
-      </Content>
-    </Container>
-  );
+        ></BackDrop>
+        <Content>
+          <Cover
+            bgUrl={
+              result.poster_path
+                ? `https://image.tmdb.org/t/p/w500${result.poster_path}`
+                : require(`../../assets/noimage.png`).default
+            }
+          ></Cover>
+          <Data>
+            <Title>
+              {result.original_title
+                ? result.original_title
+                : result.original_name}
+            </Title>
+            <ItemContainer>
+              <Item>
+                {result.release_date
+                  ? result.release_date.substring(0, 4)
+                  : result.first_air_date.substring(0, 4)}
+              </Item>
+              <Divider>•</Divider>
+              <Item>
+                {result.runtime ? result.runtime : result.episode_run_time[0]}{' '}
+                min
+              </Item>
+              <Divider>•</Divider>
+              <Item>
+                {' '}
+                {result.genres &&
+                  result.genres.map((genre, index) =>
+                    index === result.genres.length - 1
+                      ? genre.name
+                      : `${genre.name} / `,
+                  )}
+              </Item>
+            </ItemContainer>
+            <Overview>{result.overview}</Overview>
+          </Data>
+        </Content>
+      </Container>
+    )}
+  </>
+);
 
 DetailPresenter.propTypes = {
   result: PropTypes.object,

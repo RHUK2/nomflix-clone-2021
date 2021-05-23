@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import Helmet from 'react-helmet';
 
 import Loader from 'Components/Loader';
 import Section from 'Components/Section';
@@ -31,55 +32,62 @@ const SearchPresenter = ({
   handleSubmit,
   updateTerm,
 }) => (
-  <Container>
-    <Form onSubmit={handleSubmit}>
-      <Input
-        placeholder="Search Movies or TV Shows..."
-        value={searchTerm}
-        onChange={updateTerm}
-      />
-    </Form>
-    {loading ? (
-      <Loader />
-    ) : (
-      <>
-        {movieResults && movieResults.length > 0 && (
-          <Section title="Movie Results">
-            {movieResults.map((movie) => (
-              <Poster
-                key={movie.id}
-                id={movie.id}
-                imageUrl={movie.poster_path}
-                title={movie.title}
-                rating={movie.vote_average}
-                year={movie.release_data && movie.release_date.substring(0, 4)}
-                isMovie={true}
-              />
-            ))}
-          </Section>
-        )}
-        {tvResults && tvResults.length > 0 && (
-          <Section title="TV Results">
-            {tvResults.map((tv) => (
-              <Poster
-                key={tv.id}
-                id={tv.id}
-                imageUrl={tv.poster_path}
-                title={tv.name}
-                rating={tv.vote_average}
-                year={tv.first_air_date && tv.first_air_date.substring(0, 4)}
-              />
-            ))}
-          </Section>
-        )}
-        {error && <Message text={error} />}
-        {movieResults &&
-          tvResults &&
-          movieResults.length === 0 &&
-          tvResults.length === 0 && <Message text={'Not Found'} />}
-      </>
-    )}
-  </Container>
+  <>
+    <Helmet>
+      <title>Search | Nomflix</title>
+    </Helmet>
+    <Container>
+      <Form onSubmit={handleSubmit}>
+        <Input
+          placeholder="Search Movies or TV Shows..."
+          value={searchTerm}
+          onChange={updateTerm}
+        />
+      </Form>
+      {loading ? (
+        <Loader />
+      ) : (
+        <>
+          {movieResults && movieResults.length > 0 && (
+            <Section title="Movie Results">
+              {movieResults.map((movie) => (
+                <Poster
+                  key={movie.id}
+                  id={movie.id}
+                  imageUrl={movie.poster_path}
+                  title={movie.title}
+                  rating={movie.vote_average}
+                  year={
+                    movie.release_data && movie.release_date.substring(0, 4)
+                  }
+                  isMovie={true}
+                />
+              ))}
+            </Section>
+          )}
+          {tvResults && tvResults.length > 0 && (
+            <Section title="TV Results">
+              {tvResults.map((tv) => (
+                <Poster
+                  key={tv.id}
+                  id={tv.id}
+                  imageUrl={tv.poster_path}
+                  title={tv.name}
+                  rating={tv.vote_average}
+                  year={tv.first_air_date && tv.first_air_date.substring(0, 4)}
+                />
+              ))}
+            </Section>
+          )}
+          {error && <Message text={error} />}
+          {movieResults &&
+            tvResults &&
+            movieResults.length === 0 &&
+            tvResults.length === 0 && <Message text={'Not Found'} />}
+        </>
+      )}
+    </Container>
+  </>
 );
 
 SearchPresenter.propTypes = {

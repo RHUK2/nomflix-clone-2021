@@ -39,13 +39,17 @@ const Cover = styled.div`
   border: 1px solid white;
   background-position: center;
   width: 30%;
-  height: 80vh;
+  max-width: 500px;
+  min-width: 400px;
+  height: 700px;
   border-radius: 5px;
 `;
 
 const Data = styled.div`
   width: 70%;
   padding: 0px 30px;
+  max-width: 800px;
+  min-width: 500px;
 `;
 
 const Title = styled.h3`
@@ -70,7 +74,7 @@ const Item = styled.span`
 const Overview = styled.p`
   font-size: 12px;
   line-height: 1.5;
-  width: 50%;
+  width: 80%;
   margin-bottom: 30px;
 `;
 

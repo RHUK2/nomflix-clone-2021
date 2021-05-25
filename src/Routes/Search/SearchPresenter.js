@@ -34,7 +34,7 @@ const SearchPresenter = ({
 }) => (
   <>
     <Helmet>
-      <title>Search | Nomflix</title>
+      <title>Search | ThunderInfo</title>
     </Helmet>
     <Container>
       <Form onSubmit={handleSubmit}>

@@ -47,18 +47,25 @@ const TabContent = styled.div`
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
   border-bottom-left-radius: 10px;
-  padding: 20px;
-  width: 85%;
+  padding: 30px 30px;
+  width: 100%;
+  max-width: 800px;
+  min-width: 400px;
 `;
 
 const Tabs = ({ result, isMovie }) => {
   const [currentPos, setCurrentPos] = useState(0);
 
-  const arr = [
-    <Trailer video={result.videos.results} />,
-    <Maker company={result.production_companies} />,
-    <Series season={result.seasons} />,
-  ];
+  const arr = isMovie
+    ? [
+        <Trailer video={result.videos.results} />,
+        <Maker company={result.production_companies} />,
+      ]
+    : [
+        <Trailer video={result.videos.results} />,
+        <Maker company={result.production_companies} />,
+        <Series season={result.seasons} />,
+      ];
 
   const handleClick = (index) => {
     setCurrentPos(index);

@@ -2,6 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
+import NoImageUrl from 'assets/noimage.png';
+
 const Container = styled.div``;
 
 const Grid = styled.div`
@@ -29,7 +31,7 @@ const Series = ({ season }) => (
             src={
               elem.poster_path
                 ? `https://image.tmdb.org/t/p/w300${elem.poster_path}`
-                : null
+                : `${NoImageUrl}`
             }
           ></Image>
           <h3>{elem.air_date}</h3>

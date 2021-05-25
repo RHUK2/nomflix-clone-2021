@@ -34,6 +34,7 @@
       "import/no-anonymous-default-export": 0
     }
   },
+  "homepage": "https://trusting-jennings-569099.netlify.app",
   "browserslist": {
     "production": [
       ">0.2%",
